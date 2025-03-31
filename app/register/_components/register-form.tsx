@@ -20,12 +20,15 @@ import { Input } from "@/components/ui/input";
 import { registerUserSchema } from "@/validation/register-user-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 import { registerUser } from "../actions";
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const form = useForm<z.infer<typeof registerUserSchema>>({
     resolver: zodResolver(registerUserSchema),
     defaultValues: {
@@ -45,6 +48,7 @@ const RegisterForm = () => {
 
     toast.success(response.message ?? "User registered successfully");
     form.reset();
+    router.push("/login");
   };
 
   return (
