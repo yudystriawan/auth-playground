@@ -6,6 +6,18 @@ import db from "./db/drizzle";
 import { users } from "./db/user-schema";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  callbacks: {
+    jwt: async ({ token, user }) => {
+      if (user) token.id = user.id;
+
+      return token;
+    },
+    session: async ({ session, token }) => {
+      if (token) session.user.id = token.id as string;
+
+      return session;
+    },
+  },
   providers: [
     Credentials({
       credentials: {
