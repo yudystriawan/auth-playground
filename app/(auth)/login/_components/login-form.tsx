@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { loginUserSchema } from "@/validation/login-user-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -47,7 +49,7 @@ const LoginForm = () => {
 
     toast.success(response.message ?? "Login successful");
     form.reset();
-    router.push("/account");
+    router.push("/my-account");
   };
 
   return (
@@ -103,6 +105,20 @@ const LoginForm = () => {
           </form>
         </Form>
       </CardContent>
+      <CardFooter className="flex-col gap-2">
+        <div className="text-muted-foreground text-sm">
+          Don&#39;t have an account?{" "}
+          <Link href="/register" className="font-semibold underline">
+            Register
+          </Link>
+        </div>
+        <div className="text-muted-foreground text-sm">
+          Forgot password?{" "}
+          <Link href="/forgot-password" className="font-semibold underline">
+            Reset my password
+          </Link>
+        </div>
+      </CardFooter>
     </Card>
   );
 };
