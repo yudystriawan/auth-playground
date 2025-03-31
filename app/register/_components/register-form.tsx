@@ -42,6 +42,9 @@ const RegisterForm = () => {
       toast.error(response.message ?? "Something went wrong");
       return;
     }
+
+    toast.success(response.message ?? "User registered successfully");
+    form.reset();
   };
 
   return (
@@ -105,7 +108,10 @@ const RegisterForm = () => {
                 )}
               />
               <Button type="submit">
-                {form.formState.isSubmitting && <Loader2Icon />}Register
+                {form.formState.isSubmitting && (
+                  <Loader2Icon className="animate-spin" />
+                )}
+                Register
               </Button>
             </fieldset>
           </form>
