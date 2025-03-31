@@ -1,5 +1,3 @@
-import { auth } from "@/auth";
-import LogoutButton from "@/components/logout-button";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
@@ -20,13 +18,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await auth();
-
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        {session?.user && <LogoutButton />}
-
         {children}
         <Toaster richColors />
       </body>
