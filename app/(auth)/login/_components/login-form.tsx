@@ -47,7 +47,7 @@ const LoginForm = () => {
 
     toast.success(response.message ?? "Login successful");
     form.reset();
-    router.push("/");
+    router.push("/account");
   };
 
   return (
