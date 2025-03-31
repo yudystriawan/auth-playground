@@ -5,6 +5,7 @@ import {
   Card,
   CardContent,
   CardDescription,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -20,6 +21,7 @@ import { Input } from "@/components/ui/input";
 import { registerUserSchema } from "@/validation/register-user-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -121,6 +123,14 @@ const RegisterForm = () => {
           </form>
         </Form>
       </CardContent>
+      <CardFooter className="flex-col gap-2">
+        <div className="text-muted-foreground text-sm">
+          Have an account?{" "}
+          <Link href="/login" className="font-semibold underline">
+            Login
+          </Link>
+        </div>
+      </CardFooter>
     </Card>
   );
 };
