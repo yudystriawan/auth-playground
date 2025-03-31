@@ -17,28 +17,37 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { passwordSchema } from "@/validation/password-schema";
+import { loginUserSchema } from "@/validation/login-user-schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: passwordSchema,
-});
+import { loginWithCredentials } from "../actions";
 
 const LoginForm = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const router = useRouter();
+
+  const form = useForm<z.infer<typeof loginUserSchema>>({
+    resolver: zodResolver(loginUserSchema),
     defaultValues: {
       email: "",
       password: "",
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    console.log(data);
+  const onSubmit = async (data: z.infer<typeof loginUserSchema>) => {
+    const response = await loginWithCredentials(data);
+
+    if (!response.success) {
+      toast.error(response.message ?? "Something went wrong");
+      return;
+    }
+
+    toast.success(response.message ?? "Login successful");
+    form.reset();
+    router.push("/");
   };
 
   return (
