@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import LogoutButton from "@/components/logout-button";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
@@ -24,7 +25,8 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} antialiased`}>
-        <div>{session?.user?.email ?? "No currently logged in user"}</div>
+        {session?.user && <LogoutButton />}
+
         {children}
         <Toaster richColors />
       </body>
