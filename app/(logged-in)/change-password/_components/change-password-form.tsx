@@ -37,7 +37,7 @@ const ChangePasswordForm = () => {
     }
 
     toast.success(response.message ?? "Password changed successfully");
-    router.back();
+    router.push("/my-account");
   };
 
   return (
