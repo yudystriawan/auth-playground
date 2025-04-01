@@ -21,7 +21,9 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
+import { passwordReset } from "../actions";
 
 const formSchema = z.object({
   email: z.string().email(),
@@ -36,8 +38,14 @@ const ForgotPasswordForm = (props: { email?: string }) => {
   });
 
   const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-    // Handle form submission
-    console.log(data);
+    const response = await passwordReset(data.email);
+
+    if (!response.success) {
+      toast.error(response.message ?? "Something went wrong");
+      return;
+    }
+
+    toast.success(response.message ?? "Password reset email sent");
   };
 
   return (
