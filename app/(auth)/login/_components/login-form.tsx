@@ -52,6 +52,8 @@ const LoginForm = () => {
     router.push("/my-account");
   };
 
+  const email = form.watch("email");
+
   return (
     <Card>
       <CardHeader>
@@ -114,7 +116,12 @@ const LoginForm = () => {
         </div>
         <div className="text-muted-foreground text-sm">
           Forgot password?{" "}
-          <Link href="/forgot-password" className="font-semibold underline">
+          <Link
+            href={`/forgot-password${
+              email ? `?email=${encodeURIComponent(email)}` : ""
+            }`}
+            className="font-semibold underline"
+          >
             Reset my password
           </Link>
         </div>
